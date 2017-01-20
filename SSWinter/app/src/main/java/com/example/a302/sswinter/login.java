@@ -16,8 +16,6 @@ public class login extends AppCompatActivity implements View.OnClickListener{
     Button out,signUp;
     String getId,getPw;
     Snackbar idSn,pwSn;
-    ImageView i;
-    Intent in;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                 }else
                     getPw = pw.getText().toString();
                 if(getPw.getBytes().length <=0){
-                    pwSn.make(v,"비밀번호를 입력해주세요",Snackbar.LENGTH_SHORT).show();
+                    pwSn.make(v,"비밀번호를 입력해주`세요",Snackbar.LENGTH_SHORT).show();
                     break;
                 }
                 id.setText(null);
@@ -58,7 +56,8 @@ public class login extends AppCompatActivity implements View.OnClickListener{
                 break;
             case R.id.out:
                 this.finish();
-                overridePendingTransition(R.anim.go,R.anim.gone);
+                overridePendingTransition(R.anim.gone,R.anim.go);
+                Intent in = new Intent(this, MainActivity.class);
                 startActivity(in);
                 break;
         }
