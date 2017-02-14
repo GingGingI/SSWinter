@@ -11,11 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 public class login extends AppCompatActivity implements View.OnClickListener{
-
+//http://blog.naver.com/leesongyi225/20200670274 로그인을 하기위한 기능들여기서
     EditText id,pw;
     Button out,signUp;
     String getId,getPw;
-    Snackbar idSn,pwSn;
+    Snackbar idSn,pwSn,Sn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +40,14 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.login:
                 getId = id.getText().toString();
-                if(getId.getBytes().length <= 0){
+                getPw = pw.getText().toString();
+                if(getId.getBytes().length <= 0 && getPw.getBytes().length <=0) {
+                    Sn.make(v,"아이디와 비밀번호를 입력해주세요",Snackbar.LENGTH_SHORT).show();
+                }
+                else if(getId.getBytes().length <= 0){
                     idSn.make(v,"아이디를 입력해주세요",Snackbar.LENGTH_SHORT).show();
-                    id.setText(null);
-                    pw.setText(null);
-                    break;
-                }else
-                    getPw = pw.getText().toString();
-                if(getPw.getBytes().length <=0){
+                }else if(getPw.getBytes().length <=0){
                     pwSn.make(v,"비밀번호를 입력해주`세요",Snackbar.LENGTH_SHORT).show();
-                    break;
                 }
                 id.setText(null);
                 pw.setText(null);
