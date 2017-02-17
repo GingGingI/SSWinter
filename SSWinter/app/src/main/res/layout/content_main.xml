@@ -16,15 +16,17 @@
 
         <AdapterViewFlipper
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:flipInterval="2000"
+            android:layout_weight="1"
             android:background="@drawable/ux1234"
             android:id="@+id/imageView" />
 
         <include
             layout="@layout/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"/>
 
     </LinearLayout>
 </FrameLayout>

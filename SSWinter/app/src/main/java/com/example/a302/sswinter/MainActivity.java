@@ -1,7 +1,10 @@
 package com.example.a302.sswinter;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -14,12 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                         View.OnClickListener{
+    long pressedTime = 0;
 
-    Button B3;
+    LinearLayout B3;
     Intent in;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +34,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        toolbar.setBackgroundColor(Color.parseColor("#00000000"));
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        B3 = (Button)findViewById(R.id.b3);
+        B3 = (LinearLayout)findViewById(R.id.b3);
         B3.setOnClickListener(this);
+
     }
 
     @Override
@@ -55,8 +55,20 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        } else if(pressedTime == 0){
+            Toast.makeText(MainActivity.this, "한번 더 누르시면 종료합니다.", Toast.LENGTH_SHORT).show();
+            pressedTime = System.currentTimeMillis();
+        } else{
+            int seconds = (int) (System.currentTimeMillis() - pressedTime);
+
+            if (seconds > 2000) {
+                Toast.makeText(MainActivity.this, "한번 더 누르시면 종료합니다.", Toast.LENGTH_SHORT).show();
+                pressedTime = 0;
+            } else {
+                super.onBackPressed();
+                finish();
+                //app 종료
+            }
         }
     }
 
@@ -95,14 +107,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_gasi) {
-            // Handle the camera action
+            //게시판
         } else if (id == R.id.nav_login) {
             in = new Intent(this, login.class);
             startActivity(in);
         } else if (id == R.id.nav_chulsuk) {
-
+            //출석
         } else if (id == R.id.nav_info) {
-
+            //공지
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

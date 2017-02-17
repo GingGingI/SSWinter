@@ -49,6 +49,14 @@ android:layout_height="match_parent"
             android:id="@+id/login"
             android:gravity="center"
             />
+        <Button
+            android:layout_width="310dp"
+            android:layout_height="40dp"
+            android:textSize="20sp"
+            android:text="회원가입"
+            android:id="@+id/signin"
+            android:gravity="center"
+            />
     </LinearLayout>
 
         <Button android:layout_width="120dp"
